@@ -1,0 +1,30 @@
+package graficos;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+
+public class hojasprites {
+    private final int ancho;
+    private final int alto;
+    public final int[] pixeles;
+    //hojas pa sprites alv
+    public static hojasprites duegnon = new hojasprites("/texturas/dugneon.jpg", 320, 320);
+    //fin de la coleccion alv
+    public hojasprites(final String ruta, final int ancho, final int alto){
+        this.ancho = ancho;
+        this.alto = alto;
+        pixeles = new int[ancho * alto];
+        BufferedImage imagen;
+        try {
+            imagen = ImageIO.read(hojasprites.class.getResource(ruta));
+            imagen.getRGB(0, 0, ancho, alto, pixeles, 0, ancho);
+        } catch (IOException ex) {
+            Logger.getLogger(hojasprites.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public int obtenAncho(){
+        return ancho;
+    }
+}
