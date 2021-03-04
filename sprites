@@ -1,0 +1,24 @@
+package graficos;
+public final class sprites {
+    private final int lado;
+    private int x;
+    private int y;
+    public int[] pixeles;
+    private final hojasprites hoja;
+    //coleccion de sprites alv
+    public static sprites roca = new sprites(32, 0, 0, hojasprites.duegnon);
+    //aqui acaban los espraissss
+    public sprites(final int lado, final int columna, final int fila, final hojasprites hoja){
+        this.lado = lado;
+        pixeles = new int[lado * lado];
+        this.x = columna * lado;
+        this.y = fila * lado;
+        this.hoja = hoja;
+        for(int y = 0; y<lado; y++){
+            for (int x = 0; x<lado; x++){
+                pixeles[x + y * lado] = hoja.pixeles[(x + this.x) + (y + this.y) * hoja.obtenAncho()];
+            }
+        }
+        
+    }
+}
