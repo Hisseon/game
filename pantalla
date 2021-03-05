@@ -1,5 +1,8 @@
 package graficos;
-public final class pantalla {
+
+import mapa.cuadro.cuadro;
+
+public final class Pantalla {
     private final int ancho;
     private final int alto;
     public final int[] pixeles;
@@ -7,7 +10,7 @@ public final class pantalla {
     private final static int LADO_SPRITE = 32;
     private final static int MASCARA_SPRITE = LADO_SPRITE - 1;
     //temporal final
-    public pantalla(final int ancho, final int alto){
+    public Pantalla(final int ancho, final int alto){
         this.ancho = ancho;
         this.alto = alto;
         pixeles = new int[ancho * alto];
@@ -17,6 +20,7 @@ public final class pantalla {
             pixeles[i] = 0;
         }
     }
+    //temporal
     public void mostrar(final int compensacionX, final int compensacionY){
         for(int y = 0; y < alto; y++){
             int posicionY = y + compensacionY;
@@ -30,6 +34,19 @@ public final class pantalla {
                 }
                 //temporaaaaaal
                 pixeles[posicionX + posicionY * ancho] = sprites.roca.pixeles[(x & MASCARA_SPRITE) + (y & MASCARA_SPRITE) * LADO_SPRITE];
+            }
+        }
+    }
+    //temporal finnnnn
+    public void mostrarCuadro(int compensacionX, int compensacionY, cuadro cuadro){
+        for(int y = 0; y < cuadro.sprite.obtenLado(); y++ ){
+            int posicionY= y + compensacionY;
+            for(int x = 0; x < cuadro.sprite.obtenLado(); x++){
+                int posicionX = x + compensacionX;
+                if (posicionX < 0 || posicionX > ancho || posicionY < 0 || posicionY > alto){
+                    break;
+                }
+                pixeles[posicionX + posicionY * ancho] = cuadro.sprite.pixeles[x + y * cuadro.sprite.obtenLado()];
             }
         }
     }
