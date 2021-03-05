@@ -1,0 +1,11 @@
+package mapa.cuadro;
+import graficos.Pantalla;
+import graficos.sprites;
+public class cuadroAsfalto extends cuadro{
+    public cuadroAsfalto(sprites sprite) {
+        super(sprite);
+    }
+    public void mostrar(int x, int y, Pantalla pantallax){
+        pantallax.mostrarCuadro(x, y, this);
+    }
+}
