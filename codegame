@@ -1,8 +1,9 @@
 package juego;
 import controles.teclado;
-import graficos.pantalla;
+import graficos.Pantalla;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -23,7 +24,7 @@ public class Juego extends Canvas implements Runnable{
     //TEMPORAL??
     private static int x = 0;
     private static int y = 0;
-    private static pantalla pantallax;
+    private static Pantalla pantalla;
     private static BufferedImage imagen = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_RGB);
     private static int[] pixeles = ((DataBufferInt) imagen.getRaster().getDataBuffer()).getData();
     private static final ImageIcon icono = new ImageIcon(Juego.class.getResource("/icono/icono.png"));
@@ -34,7 +35,7 @@ public class Juego extends Canvas implements Runnable{
     public Juego(){
         setPreferredSize(new Dimension(ANCHO , ALTO));
         //temp?
-        pantallax = new pantalla(ANCHO, ALTO);
+        pantalla = new Pantalla(ANCHO, ALTO);
         //temp??
         tecladox = new teclado();
         addKeyListener(tecladox);
@@ -87,11 +88,13 @@ public class Juego extends Canvas implements Runnable{
             createBufferStrategy(3);
             return;
         }
-        pantallax.limpiar();
-        pantallax.mostrar(x, y);
-        System.arraycopy(pantallax.pixeles, 0, pixeles, 0, pixeles.length);
+        pantalla.limpiar();
+        pantalla.mostrar(x, y);
+        System.arraycopy(pantalla.pixeles, 0, pixeles, 0, pixeles.length);
         Graphics g = estrategia.getDrawGraphics();
         g.drawImage(imagen, 0, 0, getWidth(), getHeight(), null);
+        g.setColor(Color.blue);
+        g.fillRect(ANCHO/2, ALTO/2, 32, 32);
         g.dispose();
         estrategia.show();
         fps++;
